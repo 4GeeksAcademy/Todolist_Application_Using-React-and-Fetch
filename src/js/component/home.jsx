@@ -8,16 +8,10 @@ import rigoImage from "../../img/rigo-baby.jpg";
 
 function TodoList() {
 	//se declaran las listas en un array 
-  const [todos, setTodos] = useState([]);//array
-
+  const [todos, setTodos] = useState([]);//array vacio
 //////////////////////////////////////////////////////////////////
+
   //principio de funcion para agregar 
-  //la función handleAddTask se realizara cuando el usuario escriba en el input de agregar tarea. Primero se llama
-  // al método preventDefault() para evitar el comportamiento por default de la recarga de la pagina. Luego,
-  // se obtiene el valor del input  name:"todo"(nombre establecido en las propiedades del propio input) y se agrega 
-  // a la variable de estado "todos" mediante la función setTodos..
-  // Si el valor de newTask ( const newTask = ev.target.todo.value;)es una cadena vacía, no se agrega nada a la
-  // lista y se vacía el input.
   const handleAddTask = (ev) => {
     ev.preventDefault();	//propiedad que se coloca para evitar el evento por defecto.(preventDefault)
  
@@ -27,7 +21,6 @@ function TodoList() {
       ev.target.todo.value = "";
     }
   };//fin de funcion para agregar tareas a la lista
-
 
 /////////////////////////////////////////////////////////////////
   //principio de funcion para eliminar tareas, el cual le agregaremos a nuestro evento "onclick en la linea 50"
@@ -40,33 +33,42 @@ function TodoList() {
 ////////////////////////////////////////////////////////////////
 
   return (
-<div className="text-center">
- <div>
-  
+<body>
+  <div className="container d-flex" style={{backgroundColor:"#d9747485"}}>
+  <div className="text-center" style={{backgroundColor:"beige",margin:"auto",fontFamily:"fantasy"}}>
+ 
     <form onSubmit={handleAddTask}>  {/*Cuando se envía el formulario con onSubmit, se llama a la función handleAddTask */}
 
         <input type="text"
         name="todo"
-        placeholder="Add new task" />
+        placeholder="Add new task"
+        style={{backgroundColor:"#cbd1b984",borderRadius:"10px",marginTop:"30px",marginLeft:"100px", marginRight:"10px"}} />
 
-       <button type="submit">Add New</button>
+       <button type="submit" style={{borderRadius:"10px",marginRight:"100px",}}>Add New</button>
 
     </form>
-
-      <ol>
+      
         {/* usamos el metodo map, para transformar nuestro actual array con una funcion dada..-"key" es una manera 
         que tiene react de ingresar directamente en los elemento del index */}
-        {todos.map((todo,index) => (
-          <li key= {index} onClick={()=>deleteTask(todo)} > {todo} </li>
-        ))}
-      </ol>
-    </div>
+        {todos.map((todo,index) => ( 
+
+        <li className="d-flex" key= {index}> 
+        <div className="flex-grow-1"> 
+        {todo}
+        </div>
+        <button style={{marginLeft:"10px"}} onClick={() => deleteTask(todo)}>x</button> </li>))}
+      
+    
 </div>
+</div>
+
+</body>
 
   );
 
 
 }
+
 
 export default TodoList;
 
