@@ -4,30 +4,19 @@ body {
 }
 
 button {
-    background-color: #6cf271;
-    /* Color de fondo */
+    background-color: #cde946;
     border: none;
-    /* Sin borde */
-    color: white;
-    /* Color de texto */
-    padding: 10px 20px;
-    /* Espacio interior */
-    text-align: center;
-    /* Alinear texto al centro */
-    text-decoration: none;
-    /* Sin decoración de texto */
-    display: inline-block;
-    /* Mostrar como bloque */
-    font-size: 16px;
-    /* Tamaño de fuente */
-    margin: 4px 2px;
-    /* Margen */
-    cursor: pointer;
-    /* Cursor tipo pointer */
 
-    /* Efecto de hover */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
     &:hover {
-        background-color: #3e8e41;
+        background-color: #86d3eb;
     }
 }
 

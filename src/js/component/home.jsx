@@ -5,11 +5,10 @@ import rigoImage from "../../img/rigo-baby.jpg";
 
 
 //create your first component
-
 function TodoList() {
 	//se declaran las listas en un array 
   const [todos, setTodos] = useState([]);//array vacio
-//////////////////////////////////////////////////////////////////
+
 
   //principio de funcion para agregar 
   const handleAddTask = (ev) => {
@@ -38,16 +37,15 @@ function TodoList() {
   <div className="text-center" style={{backgroundColor:"beige",margin:"auto",fontFamily:"fantasy"}}>
  
     <form onSubmit={handleAddTask}>  {/*Cuando se envía el formulario con onSubmit, se llama a la función handleAddTask */}
-
         <input type="text"
         name="todo"
         placeholder="Add new task"
-        style={{backgroundColor:"#cbd1b984",borderRadius:"10px",marginTop:"30px",marginLeft:"100px", marginRight:"10px"}} />
+        style={{textAlign:"center",backgroundColor:"#cbd1b984",borderRadius:"10px",marginTop:"30px",marginLeft:"100px", marginRight:"10px"}} />
 
        <button type="submit" style={{borderRadius:"10px",marginRight:"100px",}}>Add New</button>
 
     </form>
-      
+
         {/* usamos el metodo map, para transformar nuestro actual array con una funcion dada..-"key" es una manera 
         que tiene react de ingresar directamente en los elemento del index */}
         {todos.map((todo,index) => ( 
@@ -57,8 +55,7 @@ function TodoList() {
         {todo}
         </div>
         <button style={{marginLeft:"10px"}} onClick={() => deleteTask(todo)}>x</button> </li>))}
-      
-    
+
 </div>
 </div>
 
