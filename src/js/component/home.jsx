@@ -22,21 +22,6 @@ function TodoList() {
     }
   };//fin de funcion para agregar tareas a la lista utilizando fetch y useEffect
 
-  const updateTodos = (todosToUpdate) => {
-    // PUT request to update todos
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/sofiafernandes", {
-      method: "PUT",
-      body: JSON.stringify(todosToUpdate),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.log(error));
-  }; // seguir realizando, cambiar el nombre de la funcion update 
-
-
 
   const fetchTodos = () => {
     fetch("https://assets.breatheco.de/apis/fake/todos/user/sofiafernandes")
