@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
 
 
 //create your first component
+
 function TodoList() {
 	//se declaran las listas en un array 
   const [todos, setTodos] = useState([]);//array vacio
@@ -19,52 +20,57 @@ function TodoList() {
       setTodos([...todos, newTask]);
       ev.target.todo.value = "";
     }
-  };//fin de funcion para agregar tareas a la lista
+  };//fin de funcion para agregar tareas a la lista utilizando fetch y useEffect
 
-/////////////////////////////////////////////////////////////////
-  //principio de funcion para eliminar tareas, el cual le agregaremos a nuestro evento "onclick en la linea 50"
-  const deleteTask = (taskToDelete) => {
-    //implementamos el metodo filter de los arrays, para crear un nuevo array con las 
-    //tareas que no deseemos que sean eliminadas el cual las llamamos "taskToDelete"
-    setTodos(todos.filter((task) => task !== taskToDelete));
+  const updateTodos = (todosToUpdate) => {
+    // PUT request to update todos
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/sofiafernandes", {
+      method: "PUT",
+      body: JSON.stringify(todosToUpdate),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error));
+  }; // seguir realizando, cambiar el nombre de la funcion update 
+
+
+
+  const fetchTodos = () => {
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/sofiafernandes")
+      .then((response) => response.json())
+      .then((data) => setTodos(data))
+      .catch((error) => console.log(error));
   };
-  //final de funcion de eliminar tareas del array.
-////////////////////////////////////////////////////////////////
 
-  return (
-<body>
-  <div className="container d-flex" style={{backgroundColor:"#d9747485"}}>
-  <div className="text-center" style={{backgroundColor:"beige",margin:"auto",fontFamily:"fantasy"}}>
- 
-    <form onSubmit={handleAddTask}>  {/*Cuando se envía el formulario con onSubmit, se llama a la función handleAddTask */}
-        <input type="text"
-        name="todo"
-        placeholder="Add new task"
-        style={{textAlign:"center",backgroundColor:"#cbd1b984",borderRadius:"10px",marginTop:"30px",marginLeft:"100px", marginRight:"10px"}} />
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
-       <button type="submit" style={{borderRadius:"10px",marginRight:"100px",}}>Add New</button>
+ return (
+    <body>
+      <div className="container d-flex" style={{backgroundColor:"#d9747485"}}>
+        <div className="text-center" style={{backgroundColor:"beige",margin:"auto",fontFamily:"fantasy"}}>
+          <form onSubmit={handleAddTask}>
+            <input type="text" name="todo" placeholder="Add new task" style={{textAlign:"center",backgroundColor:"#cbd1b984",borderRadius:"10px",marginTop:"30px",marginLeft:"100px", marginRight:"10px"}} />
+            <button type="submit" style={{borderRadius:"10px",marginRight:"100px",}}>Add New</button>
+          </form>
 
-    </form>
-
-        {/* usamos el metodo map, para transformar nuestro actual array con una funcion dada..-"key" es una manera 
-        que tiene react de ingresar directamente en los elemento del index */}
-        {todos.map((todo,index) => ( 
-
-        <li className="d-flex" key= {index}> 
-        <div className="flex-grow-1"> 
-        {todo}
+          {todos.map((todo,index) => (
+            <li className="d-flex" key= {index}>
+              <div className="flex-grow-1">{todo.label}</div>
+              <button style={{marginLeft:"10px"}} onClick={() => setTodos(todos.filter((task) => task.id !== todo.id))}>x</button>
+            </li>
+          ))}
         </div>
-        <button style={{marginLeft:"10px"}} onClick={() => deleteTask(todo)}>x</button> </li>))}
-
-</div>
-</div>
-
-</body>
-
+      </div>
+    </body>
   );
-
-
 }
+
+
 
 
 export default TodoList;
