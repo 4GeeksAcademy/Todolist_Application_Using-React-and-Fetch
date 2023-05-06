@@ -30,6 +30,14 @@ function TodoList() {
       .catch((error) => console.log(error));
   };
 
+  // const deleteTask = (id) => { //continuar con esta funcion
+  //   fetch("https://assets.breatheco.de/apis/fake/todos/user/sofiafernandes/", id {
+  //     method: "DELETE"
+  //   })
+  //   .then(() => fetchTodos())
+  //   .catch((error) => console.log(error));
+  // };
+
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -46,7 +54,7 @@ function TodoList() {
           {todos.map((todo,index) => (
             <li className="d-flex" key= {index}>
               <div className="flex-grow-1">{todo.label}</div>
-              <button style={{marginLeft:"10px"}} onClick={() => setTodos(todos.filter((task) => task.id !== todo.id))}>x</button>
+              <button style={{marginLeft:"10px"}} onClick={() => deleteTask(todo.id)}>x</button>
             </li>
           ))}
         </div>
