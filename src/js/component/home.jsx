@@ -92,9 +92,9 @@ function TodoList() {
               </button>
             </li>
           ))}
-          {/* <button onClick={handleClearAllTasks} style={{ marginTop: "20px" }}>
+           <button onClick={handleClearAllTasks} style={{ marginTop: "20px" }}>
             Clear All Tasks
-          </button> */}
+          </button> 
         </div>
       </div>
     </body>
