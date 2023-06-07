@@ -2,79 +2,67 @@ import React, { useState, useEffect } from "react";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue]= useState("");
 
-  const handleAddTask = (ev) => {
-    ev.preventDefault();
-    const newTaskLabel = ev.target.todo.value;
-    if (newTaskLabel !== "") {
-      const newTask = {
-        id: Date.now(), // Asigna un ID unico a la tarea
-        label: newTaskLabel
-      };
-      const updatedTodos = [...todos, newTask];
-    setTodos(updatedTodos);
-    ev.target.todo.value = "";
-
-      // Actualizar la lista en el servidor
-      updateTodos(updatedTodos);
+  const counter = () => {
+    if (todos.length==0) {
+      return (<p>No hay Tareas Pendientes</p>)
     }
-  };
+    else if (todos.length==1 ) {
+      return (<p>Tienes 1 Tarea Pendiente</p>)
+    }
+    else {
+      return (<p>Tienes {todos.length} Tareas Pendientes</p>)
+    }
+    
+  }
 
-  const fetchTodos = () => {
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/sofiafernandes")
+  const getTodo = () => {
+
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/sofi22540")
       .then((response) => response.json())
       .then((data) => setTodos(data))
       .catch((error) => console.log(error));
-  };
-
-  const updateTodos = (updatedTodos) => {
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/sofiafernandes", {
+}
+//FETCH PARA ACTUALIZAR(PUT)
+  const updateTodos = () => {
+    let newTask = {"label":inputValue, "done":true}
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/sofi22540", {
       method: "PUT",
-      body: JSON.stringify(updatedTodos),
+      body: JSON.stringify([...todos,newTask]),
       headers: {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => {
-        console.log(response.ok);
-        console.log(response.status);
-        console.log(response.text());
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        setTodos([...todos,newTask])
+        setInputValue(" ")
       })
       .catch((error) => {
         console.log(error);
-      });
-  };
-
-  const handleDeleteTask = (id) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodos);
-
-    // Actualizar la lista en el servidor
-    updateTodos(updatedTodos);
+      })
   };
 
    const handleClearAllTasks = () => {
    const updatedTodos = [];
    setTodos(updatedTodos);
-
   // Actualizar la lista vacía en el servidor
    updateTodos(updatedTodos);
   };
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
-
+   useEffect(() => {
+     getTodo();
+    }, []);
+  
   return (
     <body>
       <div className="container d-flex" style={{ backgroundColor: "#d9747485" }}>
         <div className="text-center" style={{ backgroundColor: "beige", margin: "auto", fontFamily: "fantasy" }}>
-          <form onSubmit={handleAddTask}>
+          <form onSubmit={updateTodos}>
             <input
+              onChange={(e)=>setInputValue(e.target.value)} 
+              value={inputValue}           
               type="text"
               name="todo"
               placeholder="Add new task"
@@ -84,14 +72,15 @@ function TodoList() {
               Add New
             </button>
           </form>
-          {todos.map((todo) => (
-            <li className="d-flex" key={todo.id} style={{ color: "black" }}>
+          {todos.map((todo, indice) => (
+            <li className="d-flex" key={indice} style={{ color: "black" }}>
               <div className="flex-grow-1">{todo.label}</div>
-              <button style={{ marginLeft: "10px" }} onClick={() => handleDeleteTask(todo.id)}>
+              <button style={{ marginLeft: "10px" }} onClick={() => setTodos(todos.filter((element, index)=> indice!==index))}>
                 x
               </button>
             </li>
           ))}
+            <p> {counter()} </p>
            <button onClick={handleClearAllTasks} style={{ marginTop: "20px" }}>
             Clear All Tasks
           </button> 
