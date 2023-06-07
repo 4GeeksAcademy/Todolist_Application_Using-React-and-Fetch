@@ -6,11 +6,11 @@ function TodoList() {
 
   const counter = () => {
     if (todos.length === 0) {
-      return <p>No hay Tareas Pendientes</p>;
+      return <p>There are no pending tasks🍻</p>;
     } else if (todos.length === 1) {
-      return <p>Tienes 1 Tarea Pendiente</p>;
+      return <p>You have 1 Pending Task🤟</p>;
     } else {
-      return <p>Tienes {todos.length} Tareas Pendientes</p>;
+      return <p>you have {todos.length} pending tasks 💩</p>;
     }
   };
 
@@ -83,7 +83,7 @@ function TodoList() {
               </button>
             </li>
           ))}
-            <p> {counter()} </p>
+            <p style={{color:"#3f5efb", fontSize: "2.5rem"}}> {counter()} </p>
            <button onClick={handleClearAllTasks} style={{ marginTop: "20px" }}>
             Clear All Tasks
           </button> 
