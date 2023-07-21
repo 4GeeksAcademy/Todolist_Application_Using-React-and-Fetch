@@ -1,6 +1,9 @@
 body {
-    background-color: rgb(245, 197, 181);
-
+    background: rgb(67,170,219);
+    background: -moz-linear-gradient(90deg, rgba(67,170,219,1) 0%, rgba(173,203,126,0.9649998427105217) 35%, rgba(229,184,226,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(67,170,219,1) 0%, rgba(173,203,126,0.9649998427105217) 35%, rgba(229,184,226,1) 100%);
+    background: linear-gradient(90deg, rgba(67,170,219,1) 0%, rgba(173,203,126,0.9649998427105217) 35%, rgba(229,184,226,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#43aadb",endColorstr="#e5b8e2",GradientType=1);
 }
 
 button {
